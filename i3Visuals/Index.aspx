@@ -148,10 +148,7 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
-                                </ol>
+                                <asp:Button ID="btnRefresh" runat="server" Text="Refresh Data" CssClass="btn btn-outline-success btn-sm float-sm-right" OnClick="btnRefresh_Click" />
                             </div>
                             <!-- /.col -->
                         </div>
@@ -187,7 +184,7 @@
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3>
-                                            <asp:Label ID="lblSearchEngineTime" runat="server" Text="17"></asp:Label></h3>
+                                            <asp:Label ID="lblSearchEngineTime" runat="server" Text="54"></asp:Label></h3>
 
                                         <p>Search Engine Time</p>
                                     </div>
@@ -202,7 +199,7 @@
                                 <div class="small-box badge-secondary">
                                     <div class="inner">
                                         <h3>
-                                            <asp:Label ID="lblSearchEngineRoundTrip" runat="server" Text="3"></asp:Label></h3>
+                                            <asp:Label ID="lblSearchEngineRoundTrip" runat="server" Text="70"></asp:Label></h3>
 
                                         <p>Search Engine Round Trip</p>
                                     </div>
@@ -217,7 +214,7 @@
                                 <div class="small-box bg-danger">
                                     <div class="inner">
                                         <h3>
-                                            <asp:Label ID="lblSearchEngineProcessingTime" runat="server" Text="5ms"></asp:Label></h3>
+                                            <asp:Label ID="lblSearchEngineProcessingTime" runat="server" Text="71ms"></asp:Label></h3>
 
                                         <p>Search Engine Processing Time</p>
                                     </div>
@@ -229,260 +226,190 @@
                             <!-- ./col -->
                         </div>
                         <!-- /.row -->
-                        <!-- Main row -->
+                        <!-- Main row  Chart Area-->
                         <div class="row">
-                            <!-- Left col -->
+                            <!--  -->
+                            <!-- LEFT col -->
                             <section class="col-lg-6 connectedSortable">
-                                <!-- Custom tabs (Charts with tabs)-->
+                                <!-- AREA CHART -->
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>
-                                            Increase or decrease of refinance loan geography-wise
-                                        </h3>
-                                        <%-- <div class="card-tools">
-                                            <ul class="nav nav-pills ml-auto">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                                </li>
-                                            </ul>
-                                        </div>--%>
+                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
                                     </div>
-                                    <!-- /.card-header -->
                                     <div class="card-body">
-                                        <div class="tab-content p-0">
-                                            <!-- Morris chart - Sales -->
-                                            <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
-                                                <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                            </div>
-                                            <%--<div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                                                <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                            </div>--%>
+                                        <div class="chart">
+                                            <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                <asp:Button ID="Button1" runat="server" Text="Click Here" OnClick="Button1_Click" />
-                                <asp:Chart ID="chartData" runat="server">
-                                    <Titles>
-                                        <asp:Title Text="Increase or decrease of refinance loan geography-wise"></asp:Title>
-                                    </Titles>
-                                    <Series>
-                                        <asp:Series Name="Series1" XValueMember="Year" YValueMembers="Value" ChartArea="ChartArea1" ChartType="Bar"></asp:Series>
-                                    </Series>
-                                    <ChartAreas>
-                                        <asp:ChartArea Name="ChartArea1">
-                                            <AxisX Title="Year"></AxisX>
-                                            <AxisY Title="Values"></AxisY>
-                                        </asp:ChartArea>
-                                    </ChartAreas>
-                                </asp:Chart>
-                            </section>
-                            <!-- /.Left col -->
-                            <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                            <section class="col-lg-6 connectedSortable">
-                                <div class="card bg-gradient-primary" style="display: none">
-                                    <!-- /.card-body-->
-                                    <div class="card-footer bg-transparent">
-                                        <div class="row">
-                                            <div class="col-4 text-center">
-                                                <div id="sparkline-1"></div>
-                                            </div>
-                                            <!-- ./col -->
-                                            <div class="col-4 text-center">
-                                                <div id="sparkline-2"></div>
-                                            </div>
-                                            <!-- ./col -->
-                                            <div class="col-4 text-center">
-                                                <div id="sparkline-3"></div>
 
-                                            </div>
-                                            <!-- ./col -->
-                                        </div>
-                                        <!-- /.row -->
+                                <!-- DONUT CHART -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Number of loans which falls under FEMA flood zone</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
                                     </div>
+                                    <div class="card-body">
+                                        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                    <!-- /.card-body -->
                                 </div>
+                                <!-- /.card -->
+
+                                <!-- PIE CHART -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loan based on the appraisal value</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                                <!-- /.card -->
+
+                            </section>
+                            <!-- /.LEFT col -->
+
+                            <!-- RIGHT col (widgets sortable)-->
+                            <section class="col-lg-6 connectedSortable">
+                                <!-- LINE CHART -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Age of the homes</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
 
                                 <!-- BAR CHART -->
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>
-                                            Age of the homes
-                                        </h3>
+                                            <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loans based on square footage</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
                                     </div>
                                     <div class="card-body">
                                         <div class="chart">
-                                            <canvas id="barChartTest" style="min-height: 250px; height: 300px; max-height: 250px; max-width: 100%;"></canvas>
+                                            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <!-- /.card -->
+
+                                <!-- STACKED BAR CHART -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loans based on square footage</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+
                             </section>
-                            <!-- right col -->
+                            <!-- RIGHT col -->
+                            <section class="col-lg-12 connectedSortable">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
+                                        <div class="card-body">
+                                            <div class="chart">
+                                                <asp:Chart ID="chartData" runat="server" style="min-height: 250px; height: 350px; width:600px; max-height: 350px; max-width: 100%;">
+                                                    <Series>
+                                                        <asp:Series Name="Series1" XValueMember="Year" YValueMembers="Value" ChartArea="ChartArea1" ChartType="Bar"></asp:Series>
+                                                    </Series>
+                                                    <ChartAreas>
+                                                        <asp:ChartArea Name="ChartArea1">
+                                                            <AxisX Title="Year"></AxisX>
+                                                            <AxisY Title="Values"></AxisY>
+                                                        </asp:ChartArea>
+                                                    </ChartAreas>
+                                                </asp:Chart>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                         <!-- /.row (main row) -->
                     </div>
                     <!-- /.container-fluid -->
-
-                    <!-- Chart Area -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- AREA CHART -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
-
-                                    <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- DONUT CHART -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-chart-pie mr-1"></i>Number of loans which falls under FEMA flood zone</h3>
-
-                                    <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- PIE CHART -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loan based on the appraisal value</h3>
-
-                                    <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                        </div>
-                        <!-- /.col (LEFT) -->
-                        <div class="col-md-6">
-                            <!-- LINE CHART -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-chart-pie mr-1"></i>Age of the homes</h3>
-
-                                    <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- BAR CHART -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loans based on square footage</h3>
-
-                                    <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- STACKED BAR CHART -->
-                            <div class="card card-success">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loans based on square footage</h3>
-
-                                    <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-
-                        </div>
-                        <!-- /.col (RIGHT) -->
-                    </div>
-
                 </section>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
+
             <footer class="main-footer">
                 <strong>Copyright &copy; 2022 </strong>
                 All rights reserved.
@@ -490,6 +417,7 @@
                     <b>TietoEvry</b>
                 </div>
             </footer>
+
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Control sidebar content goes here -->

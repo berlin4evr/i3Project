@@ -31,6 +31,11 @@ namespace i3Visuals
 
         protected async void Button1_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        protected async void btnRefresh_Click(object sender, EventArgs e)
+        {
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22Austin%22");
