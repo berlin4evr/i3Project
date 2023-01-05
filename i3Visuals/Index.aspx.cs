@@ -19,19 +19,13 @@ namespace i3Visuals
 {
     public partial class Index : System.Web.UI.Page
     {
-        //Documents documents = new Documents();
+        Documents documents = new Documents();
         //DataTable dtChart1Data = new DataTable();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             //Task T = new Task(ApiCall);
             //T.Start();
-
-        }
-
-        protected async void Button1_Click(object sender, EventArgs e)
-        {
-            
         }
 
         protected async void btnRefresh_Click(object sender, EventArgs e)
