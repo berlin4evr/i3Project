@@ -281,7 +281,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loan based on the appraisal value</h3>
+                                            <i class="fas fa-chart-pie mr-1"></i>Number of loans which falls under FEMA flood zone</h3>
 
                                         <%--<div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -444,7 +444,7 @@
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
-                    label: 'Digital Goods',
+                    label: 'Loan Amount',
                     backgroundColor: 'rgba(60,141,188,0.9)',
                     borderColor: 'rgba(60,141,188,0.8)',
                     pointRadius: false,
@@ -455,7 +455,7 @@
                     data: [28, 48, 40, 19, 86, 27, 90]
                 },
                 {
-                    label: 'Electronics',
+                    label: 'Age of Home',
                     backgroundColor: 'rgba(210, 214, 222, 1)',
                     borderColor: 'rgba(210, 214, 222, 1)',
                     pointRadius: false,
@@ -518,17 +518,13 @@
         var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
         var donutData = {
             labels: [
-                'Chrome',
-                'IE',
-                'FireFox',
-                'Safari',
-                'Opera',
-                'Navigator',
+                'Flood Zone',
+                'Loan Application',
             ],
             datasets: [
                 {
-                    data: [700, 500, 400, 600, 300, 100],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                    data: [15, 85, ],
+                    backgroundColor: ['#f56954', '#00a65a', ],
                 }
             ]
         }
