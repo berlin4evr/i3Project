@@ -62,7 +62,7 @@ $(function () {
     RU: 3000 // Russia
   }
   // World map by jvectormap
-  $('#world-map').vectorMap({
+  $('#world-map111111111111111').vectorMap({
     map: 'usa_en',
     backgroundColor: 'transparent',
     regionStyle: {

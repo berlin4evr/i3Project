@@ -19,22 +19,17 @@ namespace i3Visuals
 {
     public partial class Index : System.Web.UI.Page
     {
-        Documents documents = new Documents();
-        DataTable dtChart1Data = new DataTable();
+        //Documents documents = new Documents();
+        //DataTable dtChart1Data = new DataTable();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Task T = new Task(ApiCall);
-            T.Start();
+            //Task T = new Task(ApiCall);
+            //T.Start();
 
-            //if (!IsPostBack)
-            //{
-            //    chartData.DataSource = ViewState["DataTable"];
-            //    chartData.DataBind();
-            //}
         }
 
-        public async void ApiCall()
+        protected async void Button1_Click(object sender, EventArgs e)
         {
             using (var client = new HttpClient())
             {
@@ -72,39 +67,10 @@ namespace i3Visuals
                         dtPie.Rows.Add(dr);
                     }
 
-                    //GetDatatable(dtPie);
-                    dtChart1Data= dtPie;
-
-                    Session["DataTable"] = dtPie;
-
-                    //chartData.DataSource = null;
-                    //chartData.DataSource = ViewState["DataTable"];
-                    //chartData.DataBind();
-
-                    using (DataTable data = dtPie)
-                    {
-                        //chartData.DataSource= data;
-                        //this.Chart2.DataSource = data;
-                        ////Chart2.Legends[0].Enabled = true;
-                        //this.Chart2.Series[0].XValueMember = "Year";
-                        //this.Chart2.Series[0].YValueMembers = "Value";
-                        //this.Chart2.DataBind();
-                    }
+                    chartData.DataSource = dtPie;
+                    chartData.DataBind();
                 }
-
             }
-        }
-
-        //public void GetDatatable(DataTable dtChartData)
-        //{
-        //    chartData.DataSource = dtChartData;
-        //    chartData.DataBind();
-        //}
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            chartData.DataSource = Session["DataTable"];
-            chartData.DataBind();
         }
 
         //public void CreateChartData()
