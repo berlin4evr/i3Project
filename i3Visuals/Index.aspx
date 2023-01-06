@@ -82,7 +82,7 @@
                         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="index.aspx" class="nav-link">Home</a>
                     </li>
                 </ul>
 
@@ -143,12 +143,17 @@
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <h1 class="m-0">Dashboard</h1>
                             </div>
-                            <!-- /.col -->
                             <div class="col-sm-6">
-                                <asp:Button ID="btnRefresh" runat="server" Text="Refresh Data" CssClass="btn btn-outline-success btn-sm float-sm-right" OnClick="btnRefresh_Click" />
+                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"></asp:TextBox>
+
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-2">
+                                <asp:Button ID="btnRefresh" runat="server" Text="Search" CssClass="btn btn-block btn-outline-success float-sm-left" OnClick="btnRefresh_Click" />
+
                             </div>
                             <!-- /.col -->
                         </div>
@@ -162,7 +167,7 @@
                 <section class="content">
                     <div class="container-fluid">
                         <!-- Small boxes (Stat box) -->
-                        <div class="row">
+                        <div class="row" style="display:none">
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
@@ -228,32 +233,22 @@
                         <!-- /.row -->
                         <!-- Main row  Chart Area-->
                         <div class="row">
-                            <!--  -->
-                            <!-- LEFT col -->
-                            <section class="col-lg-6 connectedSortable">
-                                <!-- AREA CHART -->
-                                <div class="card">
+                            <!-- Search Result Holder -->
+                            <section class="col-lg-12 connectedSortable">
+                                <div class="card card-info">
                                     <div class="card-header">
                                         <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
-
-                                        <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
+                                            <i class="fas fa-search mr-1"></i> Search Result</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div class="chart">
-                                            <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                        </div>
+                                        <asp:HyperLink ID="hypSearchResult" runat="server" NavigateUrl="#" Text="PDF Link"></asp:HyperLink>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
+                            </section>
+                            <!--/. Search Result Holder  -->
+
+                            <!-- LEFT col -->
+                            <section class="col-lg-6 connectedSortable">
 
                                 <!-- DONUT CHART -->
                                 <div class="card">
@@ -277,6 +272,60 @@
                                 </div>
                                 <!-- /.card -->
 
+                                <!-- ASP chart control -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <asp:Chart ID="chartData" runat="server" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                                                <Series>
+                                                    <asp:Series Name="Series1" XValueMember="Year" YValueMembers="Value" ChartArea="ChartArea1" ChartType="Bar"></asp:Series>
+                                                </Series>
+                                                <ChartAreas>
+                                                    <asp:ChartArea Name="ChartArea1">
+                                                        <AxisX Title="Year"></AxisX>
+                                                        <AxisY Title="Values"></AxisY>
+                                                    </asp:ChartArea>
+                                                </ChartAreas>
+                                            </asp:Chart>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /. ASP chart control -->
+
+                                <!-- AREA CHART -->
+                                <div class="card" style="display:none">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+
+                            </section>
+                            <!-- /.LEFT col -->
+
+                            <!-- RIGHT col-->
+                            <section class="col-lg-6 connectedSortable">
+
                                 <!-- PIE CHART -->
                                 <div class="card">
                                     <div class="card-header">
@@ -294,36 +343,6 @@
                                     </div>
                                     <div class="card-body">
                                         <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                                <!-- /.card -->
-
-                            </section>
-                            <!-- /.LEFT col -->
-
-                            <!-- RIGHT col (widgets sortable)-->
-                            <section class="col-lg-6 connectedSortable">
-                                <!-- LINE CHART -->
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>Age of the homes</h3>
-
-                                        <%--<div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>--%>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart">
-                                            <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                        </div>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -353,6 +372,33 @@
                                 </div>
                                 <!-- /.card -->
 
+                                <!-- LINE CHART -->
+                                <div class="card" style="display:none">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-chart-pie mr-1"></i>Age of the homes</h3>
+
+                                        <%--<div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>--%>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </section>
+                            <!-- RIGHT col -->
+
+                            <section class="col-lg-12 connectedSortable" style="display:none">
                                 <!-- STACKED BAR CHART -->
                                 <div class="card">
                                     <div class="card-header">
@@ -374,31 +420,6 @@
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
-                                </div>
-
-                            </section>
-                            <!-- RIGHT col -->
-                            <section class="col-lg-12 connectedSortable">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
-                                        <div class="card-body">
-                                            <div class="chart">
-                                                <asp:Chart ID="chartData" runat="server" style="min-height: 250px; height: 350px; width:600px; max-height: 350px; max-width: 100%;">
-                                                    <Series>
-                                                        <asp:Series Name="Series1" XValueMember="Year" YValueMembers="Value" ChartArea="ChartArea1" ChartType="Bar"></asp:Series>
-                                                    </Series>
-                                                    <ChartAreas>
-                                                        <asp:ChartArea Name="ChartArea1">
-                                                            <AxisX Title="Year"></AxisX>
-                                                            <AxisY Title="Values"></AxisY>
-                                                        </asp:ChartArea>
-                                                    </ChartAreas>
-                                                </asp:Chart>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </section>
                         </div>
