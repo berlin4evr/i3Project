@@ -240,9 +240,24 @@
                                         <h3 class="card-title">
                                             <i class="fas fa-search mr-1"></i> Search Result</h3>
                                     </div>
-                                    <div class="card-body">
-                                        <asp:HyperLink ID="hypSearchResult" runat="server" NavigateUrl="#" Text="PDF Link"></asp:HyperLink>
-                                    </div>
+                                    <asp:Repeater ID="repDocument" OnItemCreated="repDocument_ItemCreated" OnItemCommand="repDocument_ItemCommand" runat="server">
+                                        <ItemTemplate>
+                                          <%--  <asp:Label ID="txtHotel" runat="server" Width="200px"
+                                                Text='<%# Eval("Year") %>' Font-Size="X-Large"> 
+                                            </asp:Label>--%>
+                                           
+                                            <%--<asp:HyperLink NavigateUrl="\\EVWP0058\pdf_data\DocSample37.pdf" runat="server" Text="View PDF" Target="_blank" />--%>
+                                            
+
+                                          <%--  <asp:Button ID="btnOpen" Text="1st Way to Show PDF In Browser" Font-Bold="true" runat="server" onclick="btnOpen_Click" />--%>
+                                            
+                                             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("Year") %>' Text='<%# Eval("Value") %>' Target="_blank"/>
+                                             
+                                          
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                  
+                                 
                                 </div>
                             </section>
                             <!--/. Search Result Holder  -->
