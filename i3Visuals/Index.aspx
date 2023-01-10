@@ -279,7 +279,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Download File" ItemStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lbtnDownloadDocument" runat="server" CommandName="Download" CommandArgument='<%#  Eval("FilePath") %>'><i class="fa fa-download"></i></asp:LinkButton>
+                                                <asp:LinkButton ID="lbtnDownloadDocument" runat="server" CommandName="Download" CommandArgument='<%#  Eval("FilePath") %>'><i class='fa fa-file-pdf' style='color: red'></i></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
