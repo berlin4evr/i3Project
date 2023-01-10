@@ -167,7 +167,7 @@
                 <section class="content">
                     <div class="container-fluid">
                         <!-- Small boxes (Stat box) -->
-                        <div class="row" style="display:none">
+                        <div class="row" style="display: none">
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
@@ -238,27 +238,47 @@
                                 <div class="card card-info">
                                     <div class="card-header">
                                         <h3 class="card-title">
-                                            <i class="fas fa-search mr-1"></i> Search Result</h3>
+                                            <i class="fas fa-search mr-1"></i>Search Result</h3>
                                     </div>
                                     <asp:Repeater ID="repDocument" OnItemCreated="repDocument_ItemCreated" OnItemCommand="repDocument_ItemCommand" runat="server">
                                         <ItemTemplate>
-                                          <%--  <asp:Label ID="txtHotel" runat="server" Width="200px"
+                                            <%--  <asp:Label ID="txtHotel" runat="server" Width="200px"
                                                 Text='<%# Eval("Year") %>' Font-Size="X-Large"> 
                                             </asp:Label>--%>
-                                           
-                                            <%--<asp:HyperLink NavigateUrl="\\EVWP0058\pdf_data\DocSample37.pdf" runat="server" Text="View PDF" Target="_blank" />--%>
-                                            
 
-                                          <%--  <asp:Button ID="btnOpen" Text="1st Way to Show PDF In Browser" Font-Bold="true" runat="server" onclick="btnOpen_Click" />--%>
-                                            
-                                             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("Year") %>' Text='<%# Eval("Value") %>' Target="_blank"/>
-                                             
-                                          
+                                            <%--<asp:HyperLink NavigateUrl="\\EVWP0058\pdf_data\DocSample37.pdf" runat="server" Text="View PDF" Target="_blank" />--%>
+
+
+                                            <%--  <asp:Button ID="btnOpen" Text="1st Way to Show PDF In Browser" Font-Bold="true" runat="server" onclick="btnOpen_Click" />--%>
+
+                                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("Year") %>' Text='<%# Eval("Value") %>' Target="_blank" />
+
+                                            <asp:Label ID="lblpdf" runat="server" Text=""></asp:Label>
+
+
                                         </ItemTemplate>
                                     </asp:Repeater>
-                                  
-                                 
+
+
                                 </div>
+                            </section>
+
+                            <section class="col-lg-12 connectedSortable">
+                                <asp:GridView ID="GrdSearchResult" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BorderStyle="None" DataKeyNames="Year" AllowPaging="true"
+                                    PageSize="20" CssClass="table table-striped table-bordered table-condensed" PagerStyle-CssClass="bs-pagination" OnRowCommand="GrdSearchResult_RowCommand">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Document">
+                                            <ItemTemplate>
+                                                <%#Eval("Year")%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Download File" ItemStyle-HorizontalAlign="Center">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbtnDownloadDocument" runat="server" CommandName="Download" CommandArgument='<%#  Eval("Year") %>'><i class="fa fa-download"></i></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
                             </section>
                             <!--/. Search Result Holder  -->
 
@@ -266,7 +286,7 @@
                             <section class="col-lg-6 connectedSortable">
 
                                 <!-- DONUT CHART -->
-                                <div class="card">
+                                <div class="card" style="display: none">
                                     <div class="card-header">
                                         <h3 class="card-title">
                                             <i class="fas fa-chart-pie mr-1"></i>Number of loans which falls under FEMA flood zone</h3>
@@ -295,7 +315,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="chart">
-                                            <asp:Chart ID="chartData" runat="server" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
+                                            <asp:Chart ID="chartData" runat="server" Style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;">
                                                 <Series>
                                                     <asp:Series Name="Series1" XValueMember="Year" YValueMembers="Value" ChartArea="ChartArea1" ChartType="Bar"></asp:Series>
                                                 </Series>
@@ -312,7 +332,7 @@
                                 <!-- /. ASP chart control -->
 
                                 <!-- AREA CHART -->
-                                <div class="card" style="display:none">
+                                <div class="card" style="display: none">
                                     <div class="card-header">
                                         <h3 class="card-title">
                                             <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
@@ -342,7 +362,7 @@
                             <section class="col-lg-6 connectedSortable">
 
                                 <!-- PIE CHART -->
-                                <div class="card">
+                                <div class="card" style="display: none">
                                     <div class="card-header">
                                         <h3 class="card-title">
                                             <i class="fas fa-chart-pie mr-1"></i>Number of loans which falls under FEMA flood zone</h3>
@@ -388,7 +408,7 @@
                                 <!-- /.card -->
 
                                 <!-- LINE CHART -->
-                                <div class="card" style="display:none">
+                                <div class="card" style="display: none">
                                     <div class="card-header">
                                         <h3 class="card-title">
                                             <i class="fas fa-chart-pie mr-1"></i>Age of the homes</h3>
@@ -413,7 +433,7 @@
                             </section>
                             <!-- RIGHT col -->
 
-                            <section class="col-lg-12 connectedSortable" style="display:none">
+                            <section class="col-lg-12 connectedSortable" style="display: none">
                                 <!-- STACKED BAR CHART -->
                                 <div class="card">
                                     <div class="card-header">
@@ -559,8 +579,8 @@
             ],
             datasets: [
                 {
-                    data: [15, 85, ],
-                    backgroundColor: ['#f56954', '#00a65a', ],
+                    data: [15, 85,],
+                    backgroundColor: ['#f56954', '#00a65a',],
                 }
             ]
         }

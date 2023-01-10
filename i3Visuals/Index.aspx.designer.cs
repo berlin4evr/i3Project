@@ -87,6 +87,15 @@ namespace i3Visuals
         protected global::System.Web.UI.WebControls.Repeater repDocument;
 
         /// <summary>
+        /// GrdSearchResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GrdSearchResult;
+
+        /// <summary>
         /// chartData control.
         /// </summary>
         /// <remarks>

@@ -24,6 +24,7 @@ namespace i3Visuals
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //\\EVWP0058\pdf_data\DocSample14.pdf
 
             //Task T = new Task(ApiCall);
             //T.Start();
@@ -55,6 +56,8 @@ namespace i3Visuals
                     // int c = (int)dt.Rows.Count;
 
                     DataTable dtPie = new DataTable();
+                    DataTable dtChart = new DataTable();
+                    dtChart.Columns.Add("FilePath");
                     dtPie.Columns.Add("Year");
                     dtPie.Columns.Add("Value");
 
@@ -65,20 +68,28 @@ namespace i3Visuals
                         string result = row["_id"].ToString().Replace("C:\\i3", "\\EVWP0058");
                         string docfilename = result.ToString().Replace("\\EVWP0058\\pdf_data\\", "");
 
-                     //   Response.ContentType = "Application/pdf";
-                     // Response.AppendHeader("Content-Disposition", "attachment; filename=Test_PDF.pdf");
-                     //Response.TransmitFile(Server.MapPath(result));
-                     //Response.End();
-                     //HyperLink1.NavigateUrl = result;
-                     //HyperLink1.Text = result;
+                        //   Response.ContentType = "Application/pdf";
+                        // Response.AppendHeader("Content-Disposition", "attachment; filename=Test_PDF.pdf");
+                        //Response.TransmitFile(Server.MapPath(result));
+                        //Response.End();
+                        //HyperLink1.NavigateUrl = result;
+                        //HyperLink1.Text = result;
                         DataRow dr = dtPie.NewRow();
-                        dr["Year"] = result;
-                        dr["Value"] = docfilename;
+                        dr["Year"] = row["_id"].ToString();
                         dtPie.Rows.Add(dr);
+
+                        //DataRow drChart = dtChart.NewRow();
+                        //dr["FilePath"] = row["Year"].ToString();
+                        //dr["Value"] = row["Value"].ToString();
+
+
                     }
 
                     repDocument.DataSource = dtPie;
                     repDocument.DataBind();
+
+                    GrdSearchResult.DataSource = dtPie;
+                    GrdSearchResult.DataBind();
 
                     chartData.DataSource = dtPie;
                     chartData.DataBind();
@@ -86,7 +97,7 @@ namespace i3Visuals
             }
         }
 
-      
+
 
         protected void repDocument_ItemCreated(object sender, RepeaterItemEventArgs e)
         {
@@ -145,5 +156,50 @@ namespace i3Visuals
         //        dataTable = null;
         //    }
         //}
+
+        public void NetworkPath()
+        {
+
+            //string networkPath = @"\\EVWP0058\\pdf_data\\DocSample14.pdf";
+            //NetworkCredential credentials = new NetworkCredential(@"{User Name}", "{Password}");
+            //string myNetworkPath = string.Empty;
+
+            //myNetworkPath = networkPath;
+
+            //string ReportURL = "{Your File Path}";
+            //byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
+            ////return File(FileBytes, "application/pdf");
+
+            //----------------------------------------------------------------------
+            string fileName = "documents.pdf";
+            string filePath = "\\EVWP0058\\pdf_data\\DocSample14.pdf";
+            string fileExtension = Path.GetExtension(filePath);
+            Response.ContentType = "Application/pdf";
+            Response.ContentType = "\".pdf\", \"application/pdf\"";
+            Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
+            Response.WriteFile(filePath);
+            Response.End();
+
+            //-------------------------------------------------------------------------
+
+
+
+        }
+
+        protected void GrdSearchResult_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Download")
+            {
+                string fileName = "documents.pdf";
+                string filePath = Convert.ToString(e.CommandArgument);
+                string fileExtension = Path.GetExtension(filePath);
+                Response.ContentType = "Application/pdf";
+                Response.ContentType = "\".pdf\", \"application/pdf\"";
+                Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
+                Response.WriteFile(filePath);
+                Response.End();
+
+            }
+        }
     }
 }
