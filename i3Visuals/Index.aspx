@@ -264,17 +264,22 @@
                             </section>
 
                             <section class="col-lg-12 connectedSortable">
-                                <asp:GridView ID="GrdSearchResult" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BorderStyle="None" DataKeyNames="Year" AllowPaging="true"
+                                <asp:GridView ID="GrdSearchResult" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BorderStyle="None" DataKeyNames="FilePath" AllowPaging="true"
                                     PageSize="20" CssClass="table table-striped table-bordered table-condensed" PagerStyle-CssClass="bs-pagination" OnRowCommand="GrdSearchResult_RowCommand">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Document">
+                                         <asp:TemplateField HeaderText="Document Path">
                                             <ItemTemplate>
-                                                <%#Eval("Year")%>
+                                                <%#Eval("FilePath")%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="File Name">
+                                            <ItemTemplate>
+                                                <%#Eval("FileName")%>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Download File" ItemStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lbtnDownloadDocument" runat="server" CommandName="Download" CommandArgument='<%#  Eval("Year") %>'><i class="fa fa-download"></i></asp:LinkButton>
+                                                <asp:LinkButton ID="lbtnDownloadDocument" runat="server" CommandName="Download" CommandArgument='<%#  Eval("FilePath") %>'><i class="fa fa-download"></i></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
