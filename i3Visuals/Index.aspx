@@ -144,7 +144,7 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                               <asp:Label ID="lblCount" runat="server"></asp:Label>
+                                <%--<asp:Label ID="lblCount" runat="server"></asp:Label>--%>
                             </div>
                         </div>
                     </div>
@@ -157,12 +157,12 @@
                         <h2 class="text-center display-4">Search</h2>
                         <div class="row">
                             <div class="col-md-8 offset-md-2">
-                                    <div class="input-group">
-                                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control form-control-lg" placeholder="Type your keywords here"></asp:TextBox>
-                                        <div class="input-group-append">
-                                             <asp:Button ID="btnRefresh" runat="server" Text="Search" CssClass="btn btn-lg btn-success" OnClick="btnRefresh_Click" />
-                                        </div>
+                                <div class="input-group">
+                                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control form-control-lg" placeholder="Type your keywords here"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <asp:Button ID="btnRefresh" runat="server" Text="Search" CssClass="btn btn-lg btn-success" OnClick="btnRefresh_Click" />
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <!-- Small boxes (Stat box) -->
@@ -236,16 +236,16 @@
                             <!-- Search Result Holder -->
                             <section class="col-lg-12 connectedSortable">
                                 <div class="card card-info">
-                                    <div class="card-header">
-                                        <h3 class="card-title">
-                                            <i class="fas fa-search mr-1"></i>Search Result</h3>
+                                    <div class="card-header text-center">
+                                        <h3 class="card-title text-center">
+                                            <i class="fas fa-search mr-1"></i><asp:Label ID="lblCount" runat="server" Text="  Search Results"></asp:Label></h3>
                                     </div>
                                 </div>
                             </section>
 
                             <section class="col-lg-12 connectedSortable">
                                 <asp:GridView ID="GrdSearchResult" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BorderStyle="None" DataKeyNames="FilePath" AllowPaging="true"
-                                    PageSize="20" CssClass="table table-striped table-bordered table-condensed" PagerStyle-CssClass="bs-pagination" OnRowCommand="GrdSearchResult_RowCommand">
+                                    PageSize="40" CssClass="table table-striped table-bordered table-condensed" PagerStyle-CssClass="bs-pagination" OnRowCommand="GrdSearchResult_RowCommand">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Document Path">
                                             <ItemTemplate>

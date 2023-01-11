@@ -32,81 +32,96 @@ namespace i3Visuals
 
         protected async void btnRefresh_Click(object sender, EventArgs e)
         {
-            using (var client = new HttpClient())
+            if (txtSearch.Text.ToLower().Contains("refinance") == true && txtSearch.Text != null)
             {
-                //HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22Austin%22");
-                HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=*&%22transaction_type%22:%22refinance%22");
-                response.EnsureSuccessStatusCode();
-
-                using (HttpContent content = response.Content)
+                using (var client = new HttpClient())
                 {
-                    string responseBody = await response.Content.ReadAsStringAsync();
+                    //HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22Austin%22");
+                    //HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=*&%22transaction_type%22:%22refinance%22");
+                    HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                    response.EnsureSuccessStatusCode();
 
-                    Console.WriteLine(responseBody);
-
-                    var articles = JsonConvert.DeserializeObject(responseBody);
-
-                    var ser = JsonConvert.SerializeObject(responseBody);
-                    var obj = JObject.Parse(responseBody);
-                    var tokenStats = obj.SelectToken("stats");
-                    var token = obj.SelectToken("documentList");
-                    var tokendoc = token.SelectToken("documents");
-
-                    lblCount.Text = Convert.ToString(tokenStats.First());
-
-                    DataTable dt = (DataTable)JsonConvert.DeserializeObject(tokendoc.ToString(), (typeof(DataTable)));
-
-                    // int c = (int)dt.Rows.Count;
-
-                    DataTable dtGrid = new DataTable();
-                    DataTable dtChart = new DataTable();
-                    dtChart.Columns.Add("Year");
-                    dtChart.Columns.Add("Value");
-
-                    dtGrid.Columns.Add("FilePath");
-                    dtGrid.Columns.Add("FileName");
-
-                    // DataRow drp = dtPie.NewRow();
-
-                    foreach (DataRow row in dt.Rows)
+                    using (HttpContent content = response.Content)
                     {
-                        //string result = row["_id"].ToString().Replace("C:\\i3", "\\EVWP0058");
-                       // string docfilename = result.ToString().Replace("\\EVWP0058\\pdf_data\\", "");
+                        string responseBody = await response.Content.ReadAsStringAsync();
 
-                        DataRow dr = dtGrid.NewRow();
-                        dr["FilePath"] = row["_id"].ToString();
-                        dr["FileName"] = Path.GetFileName(row["_id"].ToString());
-                        dtGrid.Rows.Add(dr);
+                        Console.WriteLine(responseBody);
 
-                        DataRow drChart = dtChart.NewRow();
-                        drChart["Year"] = row["year"].ToString();
-                        drChart["Value"] = row["value"].ToString();
-                        dtChart.Rows.Add(drChart);
+                        var articles = JsonConvert.DeserializeObject(responseBody);
+
+                        var ser = JsonConvert.SerializeObject(responseBody);
+                        var obj = JObject.Parse(responseBody);
+                        var tokenStats = obj.SelectToken("stats");
+                        var token = obj.SelectToken("documentList");
+                        var tokendoc = token.SelectToken("documents");
+
+                        var totlHits = tokenStats.First().ToString().Split(':').LastOrDefault();
+
+                        lblCount.Text = Convert.ToString(totlHits) + " Document(s) available";
+
+                        //lblCount.Text = Convert.ToString(tokenStats.First());
+
+                        DataTable dt = (DataTable)JsonConvert.DeserializeObject(tokendoc.ToString(), (typeof(DataTable)));
+
+                        // int c = (int)dt.Rows.Count;
+
+                        DataTable dtGrid = new DataTable();
+                        DataTable dtChart = new DataTable();
+                        dtChart.Columns.Add("Year");
+                        dtChart.Columns.Add("Value");
+
+                        dtGrid.Columns.Add("FilePath");
+                        dtGrid.Columns.Add("FileName");
+
+                        // DataRow drp = dtPie.NewRow();
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            //string result = row["_id"].ToString().Replace("C:\\i3", "\\EVWP0058");
+                            // string docfilename = result.ToString().Replace("\\EVWP0058\\pdf_data\\", "");
+
+                            DataRow dr = dtGrid.NewRow();
+                            dr["FilePath"] = row["_id"].ToString();
+                            dr["FileName"] = Path.GetFileName(row["_id"].ToString());
+                            dtGrid.Rows.Add(dr);
+
+                            DataRow drChart = dtChart.NewRow();
+                            drChart["Year"] = row["year"].ToString();
+                            drChart["Value"] = row["value"].ToString();
+                            dtChart.Rows.Add(drChart);
+                        }
+
+                        // repDocument.DataSource = dtPie;
+                        //  repDocument.DataBind();
+
+                        GrdSearchResult.DataSource = dtGrid;
+                        GrdSearchResult.DataBind();
+
+                        chartData.DataSource = dtChart;
+                        chartData.DataBind();
                     }
-
-                   // repDocument.DataSource = dtPie;
-                  //  repDocument.DataBind();
-
-                    GrdSearchResult.DataSource = dtGrid;
-                    GrdSearchResult.DataBind();
-
-                    chartData.DataSource = dtChart;
-                    chartData.DataBind();
                 }
+            }
+            else
+            {
+                this.GrdSearchResult.DataSource = null;
+                lblCount.Text = "No Documents avaiable!!! Search Again";
+                
+                //this.GrdSearchResult.Rows.Clear();
             }
         }
 
 
 
-        protected void repDocument_ItemCreated(object sender, RepeaterItemEventArgs e)
-        {
+        //protected void repDocument_ItemCreated(object sender, RepeaterItemEventArgs e)
+        //{
 
-        }
+        //}
 
-        protected void repDocument_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
+        //protected void repDocument_ItemCommand(object source, RepeaterCommandEventArgs e)
+        //{
 
-        }
+        //}
 
 
         //protected void repDocument_ItemCommand(object source, RepeaterCommandEventArgs e)
