@@ -144,28 +144,27 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <h1 class="m-0">Dashboard</h1>
+                               <asp:Label ID="lblCount" runat="server"></asp:Label>
                             </div>
-                            <div class="col-sm-6">
-                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"></asp:TextBox>
-
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-2">
-                                <asp:Button ID="btnRefresh" runat="server" Text="Search" CssClass="btn btn-block btn-outline-success float-sm-left" OnClick="btnRefresh_Click" />
-
-                            </div>
-                            <!-- /.col -->
                         </div>
-                        <!-- /.row -->
                     </div>
-                    <!-- /.container-fluid -->
                 </div>
                 <!-- /.content-header -->
 
                 <!-- Main content -->
                 <section class="content">
                     <div class="container-fluid">
+                        <h2 class="text-center display-4">Search</h2>
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                    <div class="input-group">
+                                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control form-control-lg" placeholder="Type your keywords here"></asp:TextBox>
+                                        <div class="input-group-append">
+                                             <asp:Button ID="btnRefresh" runat="server" Text="Search" CssClass="btn btn-lg btn-success" OnClick="btnRefresh_Click" />
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
                         <!-- Small boxes (Stat box) -->
                         <div class="row" style="display: none">
                             <div class="col-lg-3 col-6">
@@ -232,6 +231,7 @@
                         </div>
                         <!-- /.row -->
                         <!-- Main row  Chart Area-->
+                        <br />
                         <div class="row">
                             <!-- Search Result Holder -->
                             <section class="col-lg-12 connectedSortable">
@@ -240,26 +240,6 @@
                                         <h3 class="card-title">
                                             <i class="fas fa-search mr-1"></i>Search Result</h3>
                                     </div>
-                                    <asp:Repeater ID="repDocument" OnItemCreated="repDocument_ItemCreated" OnItemCommand="repDocument_ItemCommand" runat="server">
-                                        <ItemTemplate>
-                                            <%--  <asp:Label ID="txtHotel" runat="server" Width="200px"
-                                                Text='<%# Eval("Year") %>' Font-Size="X-Large"> 
-                                            </asp:Label>--%>
-
-                                            <%--<asp:HyperLink NavigateUrl="\\EVWP0058\pdf_data\DocSample37.pdf" runat="server" Text="View PDF" Target="_blank" />--%>
-
-
-                                            <%--  <asp:Button ID="btnOpen" Text="1st Way to Show PDF In Browser" Font-Bold="true" runat="server" onclick="btnOpen_Click" />--%>
-
-                                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("Year") %>' Text='<%# Eval("Value") %>' Target="_blank" />
-
-                                            <asp:Label ID="lblpdf" runat="server" Text=""></asp:Label>
-
-
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-
-
                                 </div>
                             </section>
 
@@ -267,7 +247,7 @@
                                 <asp:GridView ID="GrdSearchResult" runat="server" AutoGenerateColumns="false" AlternatingRowStyle-BorderStyle="None" DataKeyNames="FilePath" AllowPaging="true"
                                     PageSize="20" CssClass="table table-striped table-bordered table-condensed" PagerStyle-CssClass="bs-pagination" OnRowCommand="GrdSearchResult_RowCommand">
                                     <Columns>
-                                         <asp:TemplateField HeaderText="Document Path">
+                                        <asp:TemplateField HeaderText="Document Path">
                                             <ItemTemplate>
                                                 <%#Eval("FilePath")%>
                                             </ItemTemplate>

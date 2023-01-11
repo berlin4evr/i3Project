@@ -48,8 +48,11 @@ namespace i3Visuals
 
                     var ser = JsonConvert.SerializeObject(responseBody);
                     var obj = JObject.Parse(responseBody);
+                    var tokenStats = obj.SelectToken("stats");
                     var token = obj.SelectToken("documentList");
                     var tokendoc = token.SelectToken("documents");
+
+                    lblCount.Text = Convert.ToString(tokenStats.First());
 
                     DataTable dt = (DataTable)JsonConvert.DeserializeObject(tokendoc.ToString(), (typeof(DataTable)));
 
