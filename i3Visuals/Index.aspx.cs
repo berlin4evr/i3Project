@@ -35,21 +35,47 @@ namespace i3Visuals
             DataTable dt = default(DataTable);
             DataTable dtGrid = default(DataTable);
             DataTable dtChart = default(DataTable);
-
+            HttpResponseMessage response = default(HttpResponseMessage);
             try
             {
                 documents = new Documents();
                 dt = new DataTable();
                 dtGrid = new DataTable();
                 dtChart = new DataTable();
+                
+                response = new HttpResponseMessage();
 
-                if (txtSearch.Text.ToLower().Contains("refinance") == true && txtSearch.Text != null)
-                {
                     using (var client = new HttpClient())
                     {
-                        //HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22Austin%22");
-                        //HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=*&%22transaction_type%22:%22refinance%22");
-                        HttpResponseMessage response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+
+                    string search = txtSearch.Text.ToLower();
+                    switch (search)
+                    {
+                        case var s when search.Contains("refinance"):
+                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                            break;
+
+                        case var s when search.Contains("Purchase"):
+                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                            break;
+
+                        case var s when search.Contains("other"):
+                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                            break;
+
+                        default:
+                            this.GrdSearchResult.DataSource = null;
+                            this.GrdSearchResult.DataBind();
+                            chartData.DataSource = null;
+                            chartData.DataBind();
+                            lblCount.Text = "No Documents avaiable!!! Search Again";
+                            txtSearch.Text = string.Empty;
+                            //this.GrdSearchResult.Rows.Clear();
+                            break;
+                            
+                    }
+                  if(txtSearch.Text.Length!=0)
+                    {
                         response.EnsureSuccessStatusCode();
 
                         using (HttpContent content = response.Content)
@@ -113,16 +139,17 @@ namespace i3Visuals
                         }
                     }
                 }
-                else
-                {
-                    this.GrdSearchResult.DataSource = null;
-                    this.GrdSearchResult.DataBind();
-                    chartData.DataSource = null;
-                    chartData.DataBind();
-                    lblCount.Text = "No Documents avaiable!!! Search Again";
+                
+                //else
+                //{
+                //    this.GrdSearchResult.DataSource = null;
+                //    this.GrdSearchResult.DataBind();
+                //    chartData.DataSource = null;
+                //    chartData.DataBind();
+                //    lblCount.Text = "No Documents avaiable!!! Search Again";
 
-                    //this.GrdSearchResult.Rows.Clear();
-                }
+                //    //this.GrdSearchResult.Rows.Clear();
+                //}
             }
             catch (Exception ex)
             {
@@ -141,7 +168,7 @@ namespace i3Visuals
                 if(dtGrid!=null)
                     dtGrid.Clear();
                 dtGrid = null;
-
+                response = null;
             }
         }
 

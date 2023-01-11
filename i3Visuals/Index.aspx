@@ -479,6 +479,16 @@
         //--------------
 
         // Get context with jQuery - using jQuery's .get() method.
+
+
+        $("#btnRefresh").click(function () {
+            if ($('#txtSearch').val().length === 0) {
+                alert("Please Enter Keyword to Search....!!!!");
+                return false;
+            }
+            
+        });
+
         var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
 
         var areaChartData = {
