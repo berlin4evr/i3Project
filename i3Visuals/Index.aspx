@@ -60,9 +60,9 @@
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <%--<script src="dist/js/demo.js"></script>--%>
     <!-- AdminLTE dashboard demo -->
-    <script src="dist/js/pages/dashboard.js"></script>
+    <%--<script src="dist/js/pages/dashboard.js"></script>--%>
 
     <!-- ---------------------------Bottom Links---------------------------------------------------------------------- -->
 </head>
@@ -369,7 +369,7 @@
                                 <!-- /.card -->
 
                                 <!-- BAR CHART -->
-                                <div class="card">
+                                <div class="card" style="display: none">
                                     <div class="card-header">
                                         <h3 class="card-title">
                                             <i class="fas fa-chart-pie mr-1"></i>Classification of refinance loans based on square footage</h3>

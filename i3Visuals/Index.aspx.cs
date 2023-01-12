@@ -19,8 +19,6 @@ namespace i3Visuals
 {
     public partial class Index : System.Web.UI.Page
     {
-        //DataTable dtChart1Data = new DataTable();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             //\\EVWP0058\pdf_data\DocSample14.pdf
@@ -35,19 +33,17 @@ namespace i3Visuals
             DataTable dt = default(DataTable);
             DataTable dtGrid = default(DataTable);
             DataTable dtChart = default(DataTable);
-            HttpResponseMessage response = default(HttpResponseMessage);
+            HttpResponseMessage response = default;
             try
             {
                 documents = new Documents();
                 dt = new DataTable();
                 dtGrid = new DataTable();
                 dtChart = new DataTable();
-                
                 response = new HttpResponseMessage();
 
-                    using (var client = new HttpClient())
-                    {
-
+                using (var client = new HttpClient())
+                {
                     string search = txtSearch.Text.ToLower();
                     switch (search)
                     {
@@ -56,25 +52,23 @@ namespace i3Visuals
                             break;
 
                         case var s when search.Contains("Purchase"):
-                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22purchase%22");
                             break;
 
                         case var s when search.Contains("other"):
-                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22other%22");
                             break;
 
                         default:
-                            this.GrdSearchResult.DataSource = null;
-                            this.GrdSearchResult.DataBind();
+                            GrdSearchResult.DataSource = null;
+                            GrdSearchResult.DataBind();
                             chartData.DataSource = null;
                             chartData.DataBind();
-                            lblCount.Text = "No Documents avaiable!!! Search Again";
                             txtSearch.Text = string.Empty;
-                            //this.GrdSearchResult.Rows.Clear();
+                            lblCount.Text = "No Documents avaiable! Search again!!";
                             break;
-                            
                     }
-                  if(txtSearch.Text.Length!=0)
+                    if (txtSearch.Text.Length != 0)
                     {
                         response.EnsureSuccessStatusCode();
 
@@ -96,14 +90,10 @@ namespace i3Visuals
 
                             lblCount.Text = Convert.ToString(totlHits) + " Document(s) available";
 
-                            //lblCount.Text = Convert.ToString(tokenStats.First());
-
                             dt = (DataTable)JsonConvert.DeserializeObject(tokendoc.ToString(), (typeof(DataTable)));
 
                             // int c = (int)dt.Rows.Count;
 
-                            //DataTable dtGrid = new DataTable();
-                            //DataTable dtChart = new DataTable();
                             dtChart.Columns.Add("Year");
                             dtChart.Columns.Add("Value");
 
@@ -128,9 +118,6 @@ namespace i3Visuals
                                 dtChart.Rows.Add(drChart);
                             }
 
-                            // repDocument.DataSource = dtPie;
-                            //  repDocument.DataBind();
-
                             GrdSearchResult.DataSource = dtGrid;
                             GrdSearchResult.DataBind();
 
@@ -139,19 +126,8 @@ namespace i3Visuals
                         }
                     }
                 }
-                
-                //else
-                //{
-                //    this.GrdSearchResult.DataSource = null;
-                //    this.GrdSearchResult.DataBind();
-                //    chartData.DataSource = null;
-                //    chartData.DataBind();
-                //    lblCount.Text = "No Documents avaiable!!! Search Again";
-
-                //    //this.GrdSearchResult.Rows.Clear();
-                //}
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -159,20 +135,18 @@ namespace i3Visuals
             {
                 if (dt != null)
                     dt.Clear();
-                dt= null;
+                dt = null;
 
                 if (dtChart != null)
                     dtChart.Clear();
                 dtChart = null;
 
-                if(dtGrid!=null)
+                if (dtGrid != null)
                     dtGrid.Clear();
                 dtGrid = null;
                 response = null;
             }
         }
-
-
 
         //protected void repDocument_ItemCreated(object sender, RepeaterItemEventArgs e)
         //{
