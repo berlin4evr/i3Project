@@ -51,7 +51,7 @@ namespace i3Visuals
                             response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
                             break;
 
-                        case var s when search.Contains("Purchase"):
+                        case var s when search.Contains("purchase"):
                             response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22purchase%22");
                             break;
 
@@ -65,7 +65,7 @@ namespace i3Visuals
                             chartData.DataSource = null;
                             chartData.DataBind();
                             txtSearch.Text = string.Empty;
-                            lblCount.Text = "No Documents avaiable! Search again!!";
+                            lblCount.Text = "No Documents available! Search again!!";
                             break;
                     }
                     if (txtSearch.Text.Length != 0)
