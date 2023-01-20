@@ -24,6 +24,14 @@
                     <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
                 </ChartAreas>
             </asp:Chart>
+            <asp:Chart ID="Chart2" runat="server" BorderlineColor="Orange">
+                <Series>
+                    <asp:Series Name="Series1"></asp:Series>
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                </ChartAreas>
+            </asp:Chart>
         </div>
     </form>
 </body>

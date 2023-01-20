@@ -14,6 +14,7 @@ using i3Visuals.DataObjects;
 using System.Threading.Tasks;
 using System.Web.UI.DataVisualization;
 using System.Web.UI.DataVisualization.Charting;
+using System.Configuration;
 
 namespace i3Visuals
 {
@@ -21,6 +22,10 @@ namespace i3Visuals
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //string URLa = "http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22" + refinance +"%22";
+            //string URLb = "http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22" + purchase + "%22";
+            //string URLc = "http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22" + other + "%22";
+
             //\\EVWP0058\pdf_data\DocSample14.pdf
 
             //Task T = new Task(ApiCall);
@@ -34,6 +39,11 @@ namespace i3Visuals
             DataTable dtGrid = default(DataTable);
             DataTable dtChart = default(DataTable);
             HttpResponseMessage response = default;
+            Common common = default(Common);
+
+            string search = txtSearch.Text.ToLower();
+            string queryString = ConfigurationManager.AppSettings["API"];
+
             try
             {
                 documents = new Documents();
@@ -41,22 +51,22 @@ namespace i3Visuals
                 dtGrid = new DataTable();
                 dtChart = new DataTable();
                 response = new HttpResponseMessage();
+                common = new Common();
 
                 using (var client = new HttpClient())
                 {
-                    string search = txtSearch.Text.ToLower();
                     switch (search)
                     {
                         case var s when search.Contains("refinance"):
-                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22refinance%22");
+                            response = await client.GetAsync(queryString + "refinance" + "%22");
                             break;
 
                         case var s when search.Contains("purchase"):
-                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22purchase%22");
+                            response = await client.GetAsync(queryString + "purchase" + "%22");
                             break;
 
                         case var s when search.Contains("other"):
-                            response = await client.GetAsync("http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22other%22");
+                            response = await client.GetAsync(queryString + "other" + "%22");
                             break;
 
                         default:
@@ -148,64 +158,6 @@ namespace i3Visuals
             }
         }
 
-        //protected void repDocument_ItemCreated(object sender, RepeaterItemEventArgs e)
-        //{
-
-        //}
-
-        //protected void repDocument_ItemCommand(object source, RepeaterCommandEventArgs e)
-        //{
-
-        //}
-
-
-        //protected void repDocument_ItemCommand(object source, RepeaterCommandEventArgs e)
-        //{
-        //    if (e.CommandName == "download")
-        //    {
-        //        string filename = e.CommandArgument.ToString();
-        //        string path = MapPath("~/Docfiles/" + filename);
-        //        byte[] bts = System.IO.File.ReadAllBytes(path);
-        //        Response.Clear();
-        //        Response.ClearHeaders();
-        //        Response.AddHeader("Content-Type", "Application/octet-stream");
-        //        Response.AddHeader("Content-Length", bts.Length.ToString());
-        //        Response.AddHeader("Content-Disposition", "attachment; filename=" +
-        //        filename);
-        //        Response.BinaryWrite(bts);
-        //        Response.Flush();
-        //    }
-        //}
-
-
-
-        //public void CreateChartData()
-        //{
-        //    Documents documents = default(Documents);
-        //    DataTable dataTable = default(DataTable);
-        //    HttpClient httpClient = default(HttpClient);
-        //    try
-        //    {
-        //        httpClient = new HttpClient();
-        //        documents = new Documents();
-        //        dataTable = new DataTable();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        if(httpClient !=null)
-        //            httpClient.Dispose();
-        //        httpClient = null;
-
-        //        if(dataTable!=null)
-        //            dataTable.Clear();
-        //        dataTable = null;
-        //    }
-        //}
-
         public void NetworkPath()
         {
 
@@ -249,7 +201,6 @@ namespace i3Visuals
                 Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
                 Response.WriteFile(filePath);
                 Response.End();
-
             }
         }
     }
