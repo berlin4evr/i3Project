@@ -32,6 +32,11 @@ namespace i3Visuals
             //T.Start();
         }
 
+        /// <summary>
+        /// Button Search click activities
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected async void btnRefresh_Click(object sender, EventArgs e)
         {
             Documents documents = default(Documents);
@@ -40,9 +45,6 @@ namespace i3Visuals
             DataTable dtChart = default(DataTable);
             HttpResponseMessage response = default;
             Common common = default(Common);
-
-            string search = txtSearch.Text.ToLower();
-            string queryString = ConfigurationManager.AppSettings["API"];
 
             try
             {
@@ -53,20 +55,23 @@ namespace i3Visuals
                 response = new HttpResponseMessage();
                 common = new Common();
 
+                common.SearchText = txtSearch.Text.ToLower();
+                common.QueryString = ConfigurationManager.AppSettings["API"];
+
                 using (var client = new HttpClient())
                 {
-                    switch (search)
+                    switch (common.SearchText)
                     {
-                        case var s when search.Contains("refinance"):
-                            response = await client.GetAsync(queryString + "refinance" + "%22");
+                        case var s when common.SearchText.Contains("refinance"):
+                            response = await client.GetAsync(common.QueryString + "refinance" + "%22");
                             break;
 
-                        case var s when search.Contains("purchase"):
-                            response = await client.GetAsync(queryString + "purchase" + "%22");
+                        case var s when common.SearchText.Contains("purchase"):
+                            response = await client.GetAsync(common.QueryString + "purchase" + "%22");
                             break;
 
-                        case var s when search.Contains("other"):
-                            response = await client.GetAsync(queryString + "other" + "%22");
+                        case var s when common.SearchText.Contains("other"):
+                            response = await client.GetAsync(common.QueryString + "other" + "%22");
                             break;
 
                         default:
@@ -86,7 +91,7 @@ namespace i3Visuals
                         {
                             string responseBody = await response.Content.ReadAsStringAsync();
 
-                            Console.WriteLine(responseBody);
+                            //Console.WriteLine(responseBody);
 
                             var articles = JsonConvert.DeserializeObject(responseBody);
 
@@ -190,17 +195,37 @@ namespace i3Visuals
 
         protected void GrdSearchResult_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Download")
+            Common common = default(Common);
+            try
             {
-                //  string fileName = "documents.pdf";
-                string filePath = Convert.ToString(e.CommandArgument);
-                string fileName = System.IO.Path.GetFileName(filePath);
-                string fileExtension = Path.GetExtension(filePath);
-                Response.ContentType = "Application/pdf";
-                Response.ContentType = "\".pdf\", \"application/pdf\"";
-                Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
-                Response.WriteFile(filePath);
-                Response.End();
+                common = new Common();
+
+                if (e.CommandName == "Download")
+                {
+                    //string filePath = Convert.ToString(e.CommandArgument);
+                    //string fileName = System.IO.Path.GetFileName(filePath);
+                    //string fileExtension = Path.GetExtension(filePath);
+
+                    common.FilePath = Convert.ToString(e.CommandArgument);
+                    common.FileName = System.IO.Path.GetFileName(common.FilePath);
+                    common.FileExtension = Path.GetExtension(common.FilePath);
+
+                    Response.ContentType = "Application/pdf";
+                    Response.ContentType = "\".pdf\", \"application/pdf\"";
+                    Response.AppendHeader("Content-Disposition", "inline; filename=" + common.FileName);
+                    Response.WriteFile(common.FilePath);
+                    Response.End();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (common != null)
+                    common = null;
             }
         }
     }
