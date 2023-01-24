@@ -13,20 +13,10 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-    <!-- Tempusdominus Bootstrap 4 -->
-    <%--<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />--%>
-    <!-- iCheck -->
-    <%--<link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css" />--%>
-    <!-- JQVMap -->
-    <%--<link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css" />--%>
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css" />
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
-    <!-- Daterange picker -->
-    <%--<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css" />--%>
-    <!-- summernote -->
-    <%--<link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css" />--%>
 
     <!-- ---------------------------Bottom Links---------------------------------------------------------------------- -->
     <!-- jQuery -->
@@ -59,10 +49,6 @@
     <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <%--<script src="dist/js/demo.js"></script>--%>
-    <!-- AdminLTE dashboard demo -->
-    <%--<script src="dist/js/pages/dashboard.js"></script>--%>
 
     <!-- ---------------------------Bottom Links---------------------------------------------------------------------- -->
 </head>
@@ -296,7 +282,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">
-                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of refinance loan geography-wise</h3>
+                                            <i class="fas fa-chart-pie mr-1"></i>Increase / decrease of loan geography-wise</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="chart">
