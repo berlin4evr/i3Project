@@ -104,8 +104,6 @@
     <Content Include="dist\js\adminlte.min.js" />
     <Content Include="dist\js\demo.js" />
     <Content Include="dist\js\pages\dashboard.js" />
-    <Content Include="dist\js\pages\dashboard2.js" />
-    <Content Include="dist\js\pages\dashboard3.js" />
     <Content Include="Index.aspx" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
