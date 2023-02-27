@@ -100,6 +100,7 @@ namespace i3Visuals
                             var tokenStats = obj.SelectToken("stats");
                             var token = obj.SelectToken("documentList");
                             var tokendoc = token.SelectToken("documents");
+                            var tokenFacet = obj.SelectToken("facets");
 
                             var totlHits = tokenStats.First().ToString().Split(':').LastOrDefault();
 
@@ -191,6 +192,11 @@ namespace i3Visuals
 
 
 
+        }
+
+        public void BindSerarchResults()
+        {
+            Response.End();
         }
 
         protected void GrdSearchResult_RowCommand(object sender, GridViewCommandEventArgs e)
