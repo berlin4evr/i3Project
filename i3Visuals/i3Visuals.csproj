@@ -101,8 +101,7 @@
     <Content Include="dist\img\user8-128x128.jpg" />
     <Content Include="dist\js\adminlte.js" />
     <Content Include="dist\js\adminlte.min.js" />
-    <Content Include="dist\js\demo.js" />
-    <Content Include="dist\js\pages\dashboard.js" />
+    <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
@@ -1975,6 +1974,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1999,9 +2001,6 @@
     <Content Include="dist\css\alt\adminlte.pages.min.css.map" />
     <Content Include="dist\css\alt\adminlte.plugins.css.map" />
     <Content Include="dist\css\alt\adminlte.plugins.min.css.map" />
-    <Content Include="dist\js\.eslintrc.json" />
-    <Content Include="dist\js\adminlte.js.map" />
-    <Content Include="dist\js\adminlte.min.js.map" />
     <None Include="packages.config" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css.map" />
     <Content Include="plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css.map" />
@@ -2131,6 +2130,9 @@
       <Project>{2502dc93-6186-4de5-8cc6-6a0faf8775a5}</Project>
       <Name>i3Visuals.DataObjects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dist\js\pages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
