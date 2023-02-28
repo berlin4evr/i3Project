@@ -18,11 +18,7 @@ namespace i3Visuals
             // Code that runs on application startup
             string root = @"C:\Temp\";
             string subdir = @"C:\Temp\Logs\";
-            DateTime dateTime = DateTime.Now;
-            //string fileName = @"C:\Temp\Logs\dateTime+ '' +ErrorLog.txt";
-            string baseFileName = String.Format("{0:yyyy-MM-dd}__{1}", DateTime.Now, "ErrorLog.txt");
             string fileName = subdir + String.Format("{0:yyyy-MM-dd}__{1}", DateTime.Now, "ErrorLog.txt");
-            //string fileName = subdir + baseFileName;
 
             // If directory does not exist, create it.
             if (!Directory.Exists(root))
