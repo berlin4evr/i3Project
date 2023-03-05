@@ -2130,6 +2130,10 @@
       <Project>{2502dc93-6186-4de5-8cc6-6a0faf8775a5}</Project>
       <Name>i3Visuals.DataObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\i3Visuals.Utils\i3Visuals.Utils.csproj">
+      <Project>{dddb72a6-5ca3-4b05-9729-bb7a2797be3d}</Project>
+      <Name>i3Visuals.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dist\js\pages\" />

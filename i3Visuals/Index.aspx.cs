@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Web.UI.DataVisualization;
 using System.Web.UI.DataVisualization.Charting;
 using System.Configuration;
+using i3Visuals.Utils;
 
 namespace i3Visuals
 {
@@ -22,6 +23,7 @@ namespace i3Visuals
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //CommonFunctions.ErrorLog("Index.aspx", "TestErrorMsg", "TestErrorStack");
             //string URLa = "http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22" + refinance +"%22";
             //string URLb = "http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22" + purchase + "%22";
             //string URLc = "http://evwp0058:8090/rest/apps/residential_sample/searchers/residential_sample?q=%22transaction_type%22%20:%20%22" + other + "%22";
@@ -143,9 +145,9 @@ namespace i3Visuals
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                CommonFunctions.ErrorLog("Index.aspx", ex.Message, ex.StackTrace);
             }
             finally
             {
@@ -223,10 +225,10 @@ namespace i3Visuals
                     Response.End();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                CommonFunctions.ErrorLog("Index.aspx", ex.Message, ex.StackTrace);
             }
             finally
             {

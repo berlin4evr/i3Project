@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using System.Xml.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace i3Visuals
+namespace i3Visuals.Utils
 {
-    public class Global : System.Web.HttpApplication
+    public static class CommonFunctions
     {
-
-        protected void Application_Start(object sender, EventArgs e)
+        public static void ErrorLog(string ErrorPage, string ErrorMessage, string ErrorStackTrace)
         {
             // Code that runs on application startup
             string root = ConfigurationManager.AppSettings[@"ErrorLogRoot"];
@@ -45,40 +41,18 @@ namespace i3Visuals
                         sw.WriteLine("---------------------------------------------");
                     }
                 }
+                else if (File.Exists(fileName))
+                {
+                    // Create a new file     
+                    using (StreamWriter sw = File.AppendText(fileName))
+                    {
+                        sw.WriteLine("Issue On: {0}", DateTime.UtcNow.ToString());
+                        sw.WriteLine("Error Page: {0}", ErrorPage.ToString());
+                        sw.WriteLine("Error Message: {0}", ErrorMessage.ToString());
+                        sw.WriteLine("Error Message: {0}", ErrorStackTrace.ToString());
+                    }
+                }
             }
-        }
-
-        protected void Session_Start(object sender, EventArgs e)
-        {
-            // Code that runs when a new session is started
-        }
-
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            // Code that runs when an unhandled error occurs
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-            // Code that runs when a session ends.
-            // Note: The Session_End event is raised only when the sessionstate mode
-            // is set to InProc in the Web.config file. If session mode is set to StateServer
-            // or SQLServer, the event is not raised.
-        }
-
-        protected void Application_End(object sender, EventArgs e)
-        {
-            //  Code that runs on application shutdown
         }
     }
 }
